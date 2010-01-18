@@ -1,5 +1,6 @@
 module EventMachine
   module BddTimer
+    BddTimeoutExceededError = Class.new(::RuntimeError)
 
     attr_accessor :em_bdd_timer
 
