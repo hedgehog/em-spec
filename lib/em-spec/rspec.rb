@@ -14,6 +14,10 @@ module EventMachine
       end
       "
     end
+
+  def em_rspec_cancel_timer
+    EM.cancel_timer($_em_timer) if $_em_timer
+  end
     
     def timeout(time_to_run)
       EM.cancel_timer(@_em_timer) if @_em_timer
@@ -40,6 +44,7 @@ module EventMachine
     end
 
     def done
+      em_rspec_cancel_timer
       EM.next_tick{
         finish_em_spec_fiber
       }
