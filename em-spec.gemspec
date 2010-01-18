@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aman Gupta"]
-  s.date = %q{2009-11-19}
+  s.date = %q{2010-01-15}
   s.description = %q{Simple BDD API for testing asynchronous Ruby/EventMachine code}
   s.email = %q{aman@tmm1.net}
   s.extra_rdoc_files = [
@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
      "lib/em-spec/test.rb",
      "lib/ext/fiber18.rb",
      "test/bacon_spec.rb",
-     "test/rspec_fail_examples.rb",
+     "test/rspec_fail_spec.rb",
      "test/rspec_spec.rb",
      "test/test_spec.rb"
   ]
@@ -34,10 +34,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Simple BDD API for testing asynchronous Ruby/EventMachine code}
   s.test_files = [
-    "test/bacon_spec.rb",
-     "test/rspec_fail_examples.rb",
-     "test/rspec_spec.rb",
-     "test/test_spec.rb"
+    "test/test_spec.rb",
+     "test/rspec_fail_spec.rb",
+     "test/bacon_spec.rb",
+     "test/rspec_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
