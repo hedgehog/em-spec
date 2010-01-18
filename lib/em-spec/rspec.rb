@@ -19,14 +19,14 @@ module EventMachine
     EM.cancel_timer($_em_timer) if $_em_timer
   end
     
-    def timeout(time_to_run)
-      EM.cancel_timer(@_em_timer) if @_em_timer
-      @_em_timer = EM.add_timer(time_to_run) { done; raise SpecTimeoutExceededError.new }
+    def em_rspec_timeout(time_to_run)
+      em_rspec_cancel_timer
+      $_em_timer = EM.add_timer(time_to_run) { done; raise SpecTimeoutExceededError.new }
     end
     
     def em(time_to_run = $_em_default_time_to_finish, &block)
       EM.run do
-        timeout(time_to_run) if time_to_run
+        em_rspec_timeout(time_to_run) if time_to_run
         em_spec_exception = nil
         @_em_spec_fiber = Fiber.new do
           begin

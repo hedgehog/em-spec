@@ -68,19 +68,13 @@ describe EventMachine, "when testing with EM::Spec with a maximum execution time
 
   include EM::Spec
 
-  default_timeout 2
+  default_timeout 5
 
   it 'should timeout before reaching done' do
-    EM.add_timer(3) {
-      done
-    }
-  end
-
-  it 'should timeout before reaching done' do
-    timeout(4)
-    EM.add_timer(3) {
-      done
-    }
+      em_rspec_timeout(2)
+      lambda{
+        EM.add_timer(3) { done }
+      }.should raise EventMachine::SpecHelper::SpecTimeoutExceededError
   end
 
 end
