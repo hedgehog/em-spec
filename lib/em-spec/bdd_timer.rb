@@ -1,9 +1,7 @@
 module EventMachine
   module BddTimer
 
-    def em_bdd_timer
-      $_em_timer
-    end
+    attr_accessor :em_bdd_timer
 
     def em_bdd_cancel_timer
       EM.cancel_timer(em_bdd_timer) if em_bdd_timer
