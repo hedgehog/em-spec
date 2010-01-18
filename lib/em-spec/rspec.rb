@@ -1,9 +1,11 @@
 require 'eventmachine'
 require File.dirname(__FILE__) + '/../ext/fiber18'
+require File.dirname(__FILE__) + '/bdd_timer'
 
 module EventMachine
   module SpecHelper
-    
+    include ::EventMachine::BddTimer
+
     SpecTimeoutExceededError = Class.new(RuntimeError)
     
     def self.included(cls)
@@ -14,19 +16,10 @@ module EventMachine
       end
       "
     end
-
-  def em_rspec_cancel_timer
-    EM.cancel_timer($_em_timer) if $_em_timer
-  end
-    
-    def em_rspec_timeout(time_to_run)
-      em_rspec_cancel_timer
-      $_em_timer = EM.add_timer(time_to_run) { done; raise SpecTimeoutExceededError.new }
-    end
-    
+   
     def em(time_to_run = $_em_default_time_to_finish, &block)
       EM.run do
-        em_rspec_timeout(time_to_run) if time_to_run
+        em_bdd_timeout(time_to_run)
         em_spec_exception = nil
         @_em_spec_fiber = Fiber.new do
           begin
@@ -44,7 +37,7 @@ module EventMachine
     end
 
     def done
-      em_rspec_cancel_timer
+      em_bdd_cancel_timer
       EM.next_tick{
         finish_em_spec_fiber
       }
