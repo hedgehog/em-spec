@@ -20,7 +20,7 @@ module EventMachine
       @_em_timer = EM.add_timer(time_to_run) { done; raise SpecTimeoutExceededError.new }
     end
     
-    def em(time_to_run = @@_em_default_time_to_finish, &block)
+    def em(time_to_run = $_em_default_time_to_finish, &block)
       EM.run do
         timeout(time_to_run) if time_to_run
         em_spec_exception = nil
